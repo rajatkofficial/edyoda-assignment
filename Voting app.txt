@@ -1,0 +1,32 @@
+List of Commands
+1) kubectl apply -f .
+2) kubectl get all
+3) kubectl get po -o wide 
+4) kubectl get po
+5) kubectl get svc
+6) kubectl delete po vote-94849dc97-c4k4m
+7) kubectl delete po worker-dd46d7584-qc4z7
+8) kubectl delete po db-b54cd94f4-bz7bq 
+9) kubectl logs worker-dd46d7584-qc4z7
+10) kubectl scale deploy db --replicas=0
+11) kubectl scale deploy db --replicas=1
+
+
+
+Observation
+
+1) Using "kubectl apply -f ." command all pod's are created and came into running state
+2) Voting app web interface and results web interfaces is accessible through nodeport service & node IP address on 31000 && 31001
+3) Voted from three users and voting count is 3.
+4) Pod is deleted after the voting, observed that voting application is still accessible since the replica set is defined as 1.
+5) As replica set is defined in deployment yaml file. voting app pod instance is launched again with different instance ID. 
+   voting pod got created again with instance ID "vote-94325fg78-cskgq"
+6) There is no change in application behavior in voting & results windows after worker pod is deleted.
+7) Worker new instance got created. Vote count has same value as before worker pod deleted.
+8) Similarly, after db pod deleted, vote app & result app pod's are still accessible.
+9) When db pod is stopped using command "kubectl scale deploy db --replicas=0". the pod went into terminating state and deleted from node.
+10) Now I see votes count became zero in results app window. Even though I tried to vote from voting app the count is not incrementing in results app window.
+And I see voting & result pod RESTART count is increased by 1.
+12) I have restarted db pod using command "kubectl scale deploy db --replicas=1". Then after some time I see vote count is 2 which is previous count. 
+It means when db pod is stopped or terminated, results window does not vote count. After db pod restarted only we can see vote count.
+

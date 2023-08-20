@@ -1,0 +1,14 @@
+Q. Suppose you have deployed your application using a deployment controller. Assume the initial number of replicas is one. Write the steps needed to update a container's image using deployment, making sure that there is zero downtime.
+
+Answer:
+1) Updating docker compose file
+2) We need to first edit the existing docker compose file with the version number of the latest image.
+   I did using command line text editor into the application directory and editing the docker compose file
+# vi docker-compose.yml
+
+3) Scaling up new container using
+# docker-compose up -d --scale web-app=1 --no-recreate
+4) Removing old container 
+#  docker rm -f old-web-app
+5) Scaling down to the single container setup again.
+# docker-compose up -d --scale web-app=1 --no-recreate

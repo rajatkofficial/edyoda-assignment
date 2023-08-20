@@ -1,0 +1,5 @@
+Q.  Write a common use-case, where you will use a daemon set instead of replica set.
+
+Answer: 
+1) Log collection from every node.
+2) Node monitoring on every node.
